@@ -1,5 +1,6 @@
 let GLOBAL_MAP = null;
 let USERS = {}
+let CURRENT_POSITION = {}
 
 // We take keys and markers so that we can populate the map with all active
 initMap = () => {
@@ -16,6 +17,8 @@ initMap = () => {
                 lng: position.coords.longitude
             };
             placeAndBindMarker(pos, 'white', 'blue');
+
+            CURRENT_POSITION = pos;
             
             GLOBAL_MAP.setCenter(pos);
         }, function() {
