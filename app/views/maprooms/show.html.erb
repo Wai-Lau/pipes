@@ -1,17 +1,4 @@
-<p> <%= @url %> </p>
-<div id="map" style="width: 100%; height:90%; position: absolute; overflow: visible !important;"></div>
-<div class="row col-md-8 col-md-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-body hidden" id="moves">
-    </div>
-  </div>
-  <%= form_for :move, url: {action: "create", controller: "moves"}, remote: true, authenticity_token: true do |f| %>
-    <%= f.label :your_move %>:
-    <%= f.text_area :content, class: "form-control", data: {textarea: "move"} %>
-    <%= f.hidden_field :url, value: @url %>
-    <%= f.submit "send", class: "btn btn-primary", data: {send: "move"} %>
-  <% end %>
-</div>
+<div id="map" style="width: 100%; height:100%; position: absolute; overflow: visible !important;"></div>
 
 <script> connect("<%= @url %>") </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGBoYPW4Ll4SEInruMMxa8fvQhTujmA7w&callback=initMap"></script>
