@@ -1,30 +1,29 @@
 function updateUserPosition(position) {
-    if (CURRENT_POSITION.lat != position.lat && CURRENT_POSITION.lng != position.lng) {
-        $.ajax({
-            url: "http://localhost:3000/moves",
-            method: "POST",        
-            data: {
-                move : {
-                    content: position,
-                    game_id: "lol"
-                }
-            },
-            contentType: "multipart/form-data",
-            success: function(data){
-                console.log(data);
-            },
-            error: function(errMsg) {
-                alert(JSON.stringify(errMsg));
+    console.log('sending ajax')
+    $.ajax({
+        url: "http://localhost:3000/moves",
+        method: "POST",        
+        data: {
+            move : {
+                content: position,
+                url: GLOBAL_URL
             }
-        });
-    }
+        },
+        contentType: "multipart/form-data",
+        success: function(data){
+            console.log(data);
+        },
+        error: function(errMsg) {
+            alert(JSON.stringify(errMsg));
+        }
+    });
 }
 
 function success(pos) {
     console.log(JSON.stringify(pos.coords));
     let position = {
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
     }
     updateUserPosition(position);
     console.log(position);
