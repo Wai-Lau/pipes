@@ -7,15 +7,16 @@ function connect(url) {
       "url": GLOBAL_URL
     }, {
     received: function(data) {
-      console.log('doin something')
       $("#moves").removeClass('hidden')
       data = JSON.parse(data)
       let position = data.move;
       position.lat = parseFloat(position.lat)
       position.lng = parseFloat(position.lng)
       let user = data.user;
-      console.log(position)
-      placeAndBindMarker(position, generateColor(user), generateColor(user + 'aAA'))
+      if (USERS[user] != undefined) {
+        remove(USERS[user])
+      }
+      USERS[user] = placeAndBindMarker(position, generateColor(user), generateColor(user + 'aAA'))
       $('#moves').append("<p> <b>" + user + ": </b>" + position + "</p>");
     }
   });

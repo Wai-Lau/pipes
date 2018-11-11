@@ -14,19 +14,18 @@ function updateUserPosition(position) {
             console.log(data);
         },
         error: function(errMsg) {
-            alert(JSON.stringify(errMsg));
+            console.error(JSON.stringify(errMsg));
         }
     });
 }
 
 function success(pos) {
-    console.log(JSON.stringify(pos.coords));
+    console.log(pos.coords);
     let position = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
+        lat: pos.lat,//pos.coords.latitude,
+        lng: pos.lng//pos.coords.longitude
     }
     updateUserPosition(position);
-    console.log(position);
   }
   
   function error(err) {
@@ -39,8 +38,11 @@ function success(pos) {
   };
   
   function getCurrentLocation() {
-    console.log('getting current location')
-    return navigator.geolocation.watchPosition(success, error, options)
+    let defaultPos = {lat: randomLat(), lng: randomLng()};
+    console.log(defaultPos)
+    success(defaultPos);
+    //return navigator.geolocation.getCurrentPosition(success, error, options)
   }
   
   getCurrentLocation();
+  setInterval(getCurrentLocation, 2000);
