@@ -26,7 +26,7 @@ function success(pos) {
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude
     }
-    updateUserPosition(JSON.stringify(position));
+    updateUserPosition(position);
     console.log(position);
   }
   

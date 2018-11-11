@@ -2,12 +2,12 @@ let GLOBAL_MAP = null;
 let USERS = {}
 let CURRENT_POSITION = {}
 
-// We take keys and markers so that we can populate the map with all active
+
 initMap = () => {
     console.log('initializing map!!')
     GLOBAL_MAP = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 20
+        zoom: 5
     });
     var infoWindow = new google.maps.InfoWindow({map: GLOBAL_MAP});
     if (navigator.geolocation) {
@@ -22,11 +22,11 @@ initMap = () => {
             
             GLOBAL_MAP.setCenter(pos);
         }, function() {
-            handleLocationError(true, infoWindow, GLOBAL_MAP.getCenter());
+            console.error("nope");
         });
     } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, GLOBAL_MAP.getCenter());
+        console.log('whatever');
     }
 }
 
