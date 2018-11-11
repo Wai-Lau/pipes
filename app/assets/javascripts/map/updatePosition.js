@@ -19,3 +19,29 @@ function updateUserPosition(position) {
         });
     }
 }
+
+function success(pos) {
+    console.log(JSON.stringify(pos.coords));
+    let position = {
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+    }
+    updateUserPosition(JSON.stringify(position));
+    console.log(position);
+  }
+  
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  
+  var options = {
+    enableHighAccuracy: true,
+    maximumAge: 0
+  };
+  
+  function getCurrentLocation() {
+    console.log('getting current location')
+    return navigator.geolocation.watchPosition(success, error, options)
+  }
+  
+  getCurrentLocation();
