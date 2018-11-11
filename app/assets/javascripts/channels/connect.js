@@ -1,11 +1,12 @@
-function connect() {
-  App.moves = App.cable.subscriptions.create('MovesChannel', {  
+function connect(url) {
+  App.moves = App.cable.subscriptions.create({
+      "channel": 'MovesChannel',
+      "url": url
+    }, {
     received: function(data) {
       $("#moves").removeClass('hidden')
-      return $('#moves').append(this.renderMove(data));
-    },
-    renderMove: function(data) {
-      return "<p> <b>" + data.user + ": </b>" + data.move + "</p>";
+      data = JSON.parse(data)
+      $('#moves').append("<p> <b>" + data.user + ": </b>" + data.move + "</p>");
     }
   });
 }

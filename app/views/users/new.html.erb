@@ -1,4 +1,5 @@
 <%= form_for :user, url: {action: "create"} do |f| %>
   Name: <%= f.text_field :name %><br />
+  <%= f.hidden_field :url, value: @url %>
   <%= f.submit %>
 <% end %>
