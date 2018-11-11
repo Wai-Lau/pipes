@@ -39,8 +39,7 @@ function success(pos) {
   };
   
   function getCurrentLocation() {
-    console.log('getting current location')
-    return navigator.geolocation.watchPosition(success, error, options)
+    return navigator.geolocation.getCurrentPosition(success, error, options)
   }
   
   getCurrentLocation();
