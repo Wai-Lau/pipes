@@ -15,7 +15,10 @@ function connect(url) {
       position.lng = parseFloat(position.lng)
       let user = data.user;
       console.log(position)
-      placeAndBindMarker(position, generateColor(user), generateColor(user + 'aAA'))
+      if (USERS[user] != undefined) {
+        remove(USERS[user])
+      }
+      USERS[user] = placeAndBindMarker(position, generateColor(user), generateColor(user + 'aAA'))
       $('#moves').append("<p> <b>" + user + ": </b>" + position + "</p>");
     }
   });

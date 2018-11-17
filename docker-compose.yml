@@ -6,10 +6,10 @@ services:
     tty: true
     stdin_open: true
     build: .
-    command: bash -c "rake db:create && rake db:migrate && bundle exec rails s -e development -p 3000 -b '0.0.0.0'"
+    command: bash -c "rake db:create && rake db:migrate && bundle exec rails s -e development -p 80 -b '0.0.0.0'"
     volumes:
       - .:/myapp
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - db

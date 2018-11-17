@@ -1,7 +1,7 @@
 function updateUserPosition(position) {
     console.log('sending ajax')
     $.ajax({
-        url: "http://localhost:3000/moves",
+        url: "https://wailau.net/moves",
         method: "POST",        
         data: {
             move : {
@@ -14,7 +14,7 @@ function updateUserPosition(position) {
             console.log(data);
         },
         error: function(errMsg) {
-            alert(JSON.stringify(errMsg));
+            console.log(JSON.stringify(errMsg));
         }
     });
 }
@@ -43,3 +43,4 @@ function success(pos) {
   }
   
   getCurrentLocation();
+  setInterval(getCurrentLocation, 2000);
