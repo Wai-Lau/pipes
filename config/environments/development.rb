@@ -56,5 +56,5 @@ Rails.application.configure do
   host = ENV['WEBSOCKET_HOST']
   port = ENV['WEBSOCKET_HOST_PORT']
   config.action_cable.url = "ws://#{host}:#{port}/cable"
-  config.action_cable.allowed_request_origins = ["http://#{host}:#{port}"]
+  config.action_cable.allowed_request_origins = ["https://#{host}:#{port}"]
 end
