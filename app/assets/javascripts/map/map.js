@@ -19,7 +19,7 @@ initMap = () => {
             };
             console.log('Updating default position')
             updateUserPosition(pos)
-            
+
             GLOBAL_MAP.setCenter(pos);
         }, function() {
             console.error("nope");
