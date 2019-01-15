@@ -1,4 +1,18 @@
 <div id="map" style="width: 100%; height:100%; position: absolute; overflow: visible !important;"></div>
 
 <script> connect("<%= @url %>") </script>
+<%= javascript_include_tag 'workers/updatePosition' %>
+<script>
+var w;
+
+function startWorker() {
+  if(typeof(Worker) !== "undefined") {
+    if(typeof(w) == "undefined") {
+      w = new Worker("map/updatePosition.js");
+    }
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+  }
+}
+</script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGBoYPW4Ll4SEInruMMxa8fvQhTujmA7w&callback=initMap"></script>

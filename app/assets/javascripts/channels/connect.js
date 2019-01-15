@@ -1,4 +1,4 @@
-let GLOBAL_URL; 
+let GLOBAL_URL;
 
 function connect(url) {
   GLOBAL_URL = url;
