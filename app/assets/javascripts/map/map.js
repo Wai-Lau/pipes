@@ -17,9 +17,6 @@ initMap = () => {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            console.log('Updating default position')
-            updateUserPosition(pos)
-
             GLOBAL_MAP.setCenter(pos);
         }, function() {
             console.error("nope");
