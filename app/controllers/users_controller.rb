@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+
   def random_string
     (0..15).map { (65 + rand(26)).chr }.join
   end

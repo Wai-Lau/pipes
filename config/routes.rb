@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  # Serve websocket cable requests in-process
   mount ActionCable.server => '/cable'
-  resources :maprooms
-  resources :users
-  resources :moves
+  resources :maprooms, only: [:show]
+  resources :users, only: [:new, :create]
+  resources :moves, only: [:create]
   root to: "users#new"
 end
