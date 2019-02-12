@@ -1,67 +1,72 @@
-let GLOBAL_MAP = null;
+createMap = () => {
+  var map = new maptalks.Map('map', {
+    center: [0,20],
+    zoom: 2.5,
+    baseLayer: new maptalks.TileLayer('base', {
+      urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      subdomains: ['a','b','c','d'],
+      attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy;'
+    })
+  });
+  map.config('draggable', true);
+  map.config('zoomable', true);
 
-let USERS = {}
+  dontColor = '#333'
+  floodColor = '#f33'
 
-
-initMap = () => {
-    console.log('initializing map!!')
-
-    GLOBAL_MAP = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 42.3508224, lng: -71.108409999999},
-        zoom: 19
+  addCircles = (circles) => {
+    circles = circles.map((c) => {
+      let size = c.size * 120000;
+      return new maptalks.Circle([c.lat, c.lng], size, {
+        symbol: {
+          lineColor: '#fff',
+          lineWidth: 0.5,
+          polygonFill: dontColor,
+          polygonOpacity: 0.4
+        }
+      });
     });
-    //var infoWindow = new google.maps.InfoWindow({map: GLOBAL_MAP});
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            console.log('Updating default position')
-            updateUserPosition(pos)
+    console.log(circles)
+    new maptalks.VectorLayer('vector')
+      .addGeometry(circles)
+      .addTo(map);
+    return circles
+  }
+}
 
-            GLOBAL_MAP.setCenter(pos);
-        }, function() {
-            console.error("nope");
-        });
+checkFloods = (circles__data, circles) => {
+  let displacedPersons = 0;
+  for (var i=0; i < circles__data.length; i++) {
+    //console.log(circles_data[i]["alt"])
+    if (parseFloat(circles__data[i]["alt"]) < 0) {
+      circleFlood(circles[i]);
+      displacedPersons += circles__data[i]["pop"];
     } else {
-        // Browser doesn't support Geolocation
-        console.log('whatever');
+      circleDont(circles[i]);
     }
+  }
+  $("#displacedppl").text(displacedPersons.toLocaleString());
 }
 
-placeAndBindMarker = (latLng, borderColor, filledColor) => {
-    return new google.maps.Marker({
-      position: latLng,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillColor: filledColor,
-        strokeColor: borderColor,
-        opacity: 0.9,
-        strokeWeight: 5,
-        fillOpacity: 1,
-        scale: 10
-      },
-      map: GLOBAL_MAP
-    });
+circleAppear = (circle) => {
+  circle.updateSymbol({
+    'polygonOpacity' : 0.4
+  });
+}
+circleGone = (circle) => {
+  circle.updateSymbol({
+    'polygonOpacity' : 0
+  });
+}
+circleFlood = (circle) => {
+  circle.updateSymbol({
+    'polygonFill' : floodColor
+  });
+}
+circleDont = (circle) => {
+  circle.updateSymbol({
+    'polygonFill' : dontColor
+  });
 }
 
-placeAndBindMarkerDefault = () => {
-    CURRENT_POSITION = new google.maps.Marker({
-      position: {lat: -34.397, lng: 150.644},
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillColor: 'red',
-        strokeColor: 'white',
-        opacity: 0.9,
-        strokeWeight: 5,
-        fillOpacity: 1,
-        scale: 10
-      },
-      map: GLOBAL_MAP
-    });
-}
 
-remove = (marker) => {
-    marker.setMap(null); // set markers setMap to null to remove it from map
-};

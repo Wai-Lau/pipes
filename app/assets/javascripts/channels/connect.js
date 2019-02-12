@@ -1,10 +1,7 @@
-let GLOBAL_URL; 
-
-function connect(url) {
-  GLOBAL_URL = url;
+function connect(hsh) {
   App.moves = App.cable.subscriptions.create({
       "channel": 'MovesChannel',
-      "url": GLOBAL_URL
+      "hsh": hsh
     }, {
     received: function(data) {
       console.log('doin something')

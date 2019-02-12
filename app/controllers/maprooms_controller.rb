@@ -1,15 +1,16 @@
 class MaproomsController < ApplicationController
-  def show
-    unless cookies.signed[:user_id]
-      redirect_to new_user_url(url: params[:id])
-      return
-    end
-    @url = params[:id]
+  def index
+    @hsh = params[:hsh]
+    room = current_room
+    @maproom = room.id
+    host = ENV['WEBSOCKET_HOST']
+    port = ENV['WEBSOCKET_HOST_PORT']
+    @host = "http://#{host}:#{port}"
   end
 
   private
 
-  def room
-    Maproom.find_by(url: params[:id])
+  def current_room
+    Maproom.find_or_create_by(hsh: params[:hsh])
   end
 end
