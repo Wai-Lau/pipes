@@ -1,6 +1,46 @@
-<%= @hsh %>
-<%= @maproom %>
-<div id="map" class="container"></div>
+<div class="main">
+  <div id="map" style="width:100%; height: 100%;"></div>
+  <div class="setup">
+    <div class="card panel">
+      <img class="card-img-top" alt="...">
+      <div class="card-body">
+        <h1 class="card-title">Welcome to Pipes!</h1>
+        <p class="card-text">Copy the link in the top right to share your location with friends!</p>
+      </div>
+    </div>
+    <div class="card panel">
+      <img class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">We don't store your location!</h5>
+        <p class="card-text">We can't help you if you don't :(</p>
+      </div>
+    </div>
+    <div class="card panel">
+      <div class="card-body">
+        <h5 class="card-title">What should we call you?</h5>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="preview_circle" style="text-shadow: 0px 0px 4px #000000;"><strong>◯</strong></span>
+          </div>
+          <input type="text" class="form-control"
+            id="name"
+            placeholder="It changes your color!"
+            aria-describedby="basic-addon2" onkeydown="update_preview_circle()"
+          >
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">Let's go!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card your-link">
+    <div class="card-body">
+      <p class="card-text">Invite link: <%=@host%><%= @hsh %></p>
+    </div>
+  </div>
+</div>
 <script>
   createMap();
+  connect("<%=@hsh%>");
 </script>

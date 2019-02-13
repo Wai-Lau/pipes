@@ -22,11 +22,18 @@ function connect(hsh) {
 }
 
 
-function generateColor(url) {
+function generateColor(name) {
   var data = [];
-  for (var i = 0; i < url.length; i++){
-      data.push(url.charCodeAt(i));
+  for (var i = 0; i < name.length; i++){
+      data.push(name.charCodeAt(i));
   }
   let randomNumber = data.reduce((total, num)=>{return total + num})
   return '#' + Math.floor((Math.abs(Math.sin(randomNumber) * 16777215)) % 16777215).toString(16).padStart(6, '0');
 }
+
+update_preview_circle = () => {
+  name = document.getElementById("name").value
+  document.getElementById("preview_circle").style.color = generateColor(name);
+}
+
+channel = ()
