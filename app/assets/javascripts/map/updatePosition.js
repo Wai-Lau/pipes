@@ -1,10 +1,15 @@
+GLOBAL_HOST = "";
+GLOBAL_HSH = "";
+GLOBAL_NAME = "";
+
 function updateUserPosition(position) {
-    console.log('sending ajax')
+    console.log(`sending ajax to ${GLOBAL_HOST}/moves`)
     $.ajax({
-        url: GLOBAL_HOST,
+        url: GLOBAL_HOST + "/moves",
         method: "POST",
         data: {
             move : {
+                user: GLOBAL_NAME,
                 content: position,
                 hsh: GLOBAL_HSH
             }
@@ -39,10 +44,15 @@ var options = {
 };
 
 function getCurrentLocation() {
-  return navigator.geolocation.getCurrentPosition(success, error, options)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error, options)
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
 }
 
 function startUpdating() {
   getCurrentLocation();
   setInterval(getCurrentLocation, 5000);
 }
+

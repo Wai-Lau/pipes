@@ -1,18 +1,10 @@
 <div class="main">
   <div id="map" style="width:100%; height: 100%;"></div>
-  <div class="setup">
-    <div class="card panel">
-      <img class="card-img-top" alt="...">
+  <div class="setup" id="setup">
+    <div class="card panel" style="text-align: center">
       <div class="card-body">
-        <h1 class="card-title">Welcome to Pipes!</h1>
-        <p class="card-text">Copy the link in the top right to share your location with friends!</p>
-      </div>
-    </div>
-    <div class="card panel">
-      <img class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">We don't store your location!</h5>
-        <p class="card-text">We can't help you if you don't :(</p>
+        <h1 class="card-title">P I P E S</h1>
+        <p class="card-text">Copy the link in the top right to share your location!</p>
       </div>
     </div>
     <div class="card panel">
@@ -24,19 +16,24 @@
           </div>
           <input type="text" class="form-control"
             id="name"
-            placeholder="It changes your color!"
-            aria-describedby="basic-addon2" onkeydown="update_preview_circle()"
+            placeholder="John Doe"
+            aria-describedby="basic-addon2" onkeyup="update_preview_circle()"
           >
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">Let's go!</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="finish_setup('<%=@host%>','<%=@hsh%>')">Find me!</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="card panel" id="location" style="display: none;">
+      <div class="card-body">
+        <p class="card-text"></p>
       </div>
     </div>
   </div>
   <div class="card your-link">
     <div class="card-body">
-      <p class="card-text">Invite link: <%=@host%><%= @hsh %></p>
+      <p class="card-text">Invite link: <%=@host%><%=@hsh%></p>
     </div>
   </div>
 </div>
