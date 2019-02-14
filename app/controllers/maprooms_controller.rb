@@ -5,12 +5,16 @@ class MaproomsController < ApplicationController
     if params[:hsh]
       room = current_room if params[:hsh]
     end
-    room = Maproom.new(hsh: SecureRandom.hex[0..12]) unless room
-    room.save!
+    if not room
+      room = Maproom.new(hsh: SecureRandom.hex[0..12])
+      while not room.save
+        room = Maproom.new(hsh: SecureRandom.hex[0..12])
+      end
+    end
     @hsh = room[:hsh]
     @maproom = room.id
     host = ENV['WEBSOCKET_HOST']
-    @host = "http://#{host}/"
+    @host = "https://#{host}/"
   end
 
   private

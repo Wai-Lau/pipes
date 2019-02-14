@@ -1,5 +1,8 @@
+MAP = {}
+LAYER = {}
+
 createMap = () => {
-  var map = new maptalks.Map('map', {
+  MAP = new maptalks.Map('map', {
     center: [0,20],
     zoom: 2.5,
     baseLayer: new maptalks.TileLayer('base', {
@@ -8,65 +11,63 @@ createMap = () => {
       attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy;'
     })
   });
-  map.config('draggable', true);
-  map.config('zoomable', true);
 
-  dontColor = '#333'
-  floodColor = '#f33'
+  LAYER = new maptalks.VectorLayer('v').addTo(MAP);
+}
 
-  addCircles = (circles) => {
-    circles = circles.map((c) => {
-      let size = c.size * 120000;
-      return new maptalks.Circle([c.lat, c.lng], size, {
-        symbol: {
-          lineColor: '#fff',
-          lineWidth: 0.5,
-          polygonFill: dontColor,
-          polygonOpacity: 0.4
-        }
-      });
+addOrUpdateMarker = (position, name) => {
+  lat = position["lat"]
+  lng = position["lng"]
+
+  if (USERS[name]["marker"]) {
+    delta = offset(USERS[name]["marker"].getCoordinates(), position)
+    USERS[name]["marker"].bringToFront().animate({
+      translate: [delta['lng'], delta['lat']]
+    }, {
+      duration: 5000,
     });
-    console.log(circles)
-    new maptalks.VectorLayer('vector')
-      .addGeometry(circles)
-      .addTo(map);
-    return circles
+  } else {
+    USERS[name]["marker"] = new maptalks.Marker(
+      [lng, lat],
+      {
+        'symbol' : {
+          'markerType': 'ellipse',
+          'markerFill': '#ffffff',
+          'markerFillOpacity': 0.2,
+          'markerLineColor': generateColor(name),
+          'markerLineWidth': 3,
+          'markerLineOpacity': 1,
+          'markerLineDasharray':[],
+          'markerWidth': 18,
+          'markerHeight': 18,
+          'markerDx': 0,
+          'markerDy': 0,
+          'markerOpacity' : 1,
+          'textFaceName' : 'sans-serif',
+          'textName' : '    '+name,
+          'textFill' : '#34495e',
+          'textHorizontalAlignment' : 'right',
+          'textSize' : 18,
+          'shadowBlur' : 20,
+          'shadowOffsetX' : 2,
+          'shadowOffsetY' : 2,
+        }
+      }
+    ).addTo(LAYER);
   }
 }
 
-checkFloods = (circles__data, circles) => {
-  let displacedPersons = 0;
-  for (var i=0; i < circles__data.length; i++) {
-    //console.log(circles_data[i]["alt"])
-    if (parseFloat(circles__data[i]["alt"]) < 0) {
-      circleFlood(circles[i]);
-      displacedPersons += circles__data[i]["pop"];
-    } else {
-      circleDont(circles[i]);
-    }
-  }
-  $("#displacedppl").text(displacedPersons.toLocaleString());
+offset = (start, finish) => {
+  return {"lng": (finish["lng"] - start["x"]),
+          "lat": (finish["lat"] - start["y"])}
 }
 
-circleAppear = (circle) => {
-  circle.updateSymbol({
-    'polygonOpacity' : 0.4
+changeView = (x, y, zoom, duration, pitch) => {
+  MAP.animateTo({
+    center: [x, y],
+    zoom: zoom,
+    pitch: pitch,
+  }, {
+    duration: duration
   });
 }
-circleGone = (circle) => {
-  circle.updateSymbol({
-    'polygonOpacity' : 0
-  });
-}
-circleFlood = (circle) => {
-  circle.updateSymbol({
-    'polygonFill' : floodColor
-  });
-}
-circleDont = (circle) => {
-  circle.updateSymbol({
-    'polygonFill' : dontColor
-  });
-}
-
-

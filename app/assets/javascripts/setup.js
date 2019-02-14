@@ -14,11 +14,11 @@ update_preview_circle = (event) => {
 
 finish_setup = (host, hsh) => {
   name = document.getElementById("name").value
-  GLOBAL_HOST = host
-  GLOBAL_HSH = hsh
-  GLOBAL_NAME = name
   if (name) {
+    startUpdating()
+    GLOBAL_HOST = host
+    GLOBAL_HSH = hsh
+    GLOBAL_NAME = name
     document.getElementById("setup").style.display = "none"
   }
-  startUpdating()
 }

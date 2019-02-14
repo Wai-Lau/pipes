@@ -3,8 +3,8 @@ class MovesController < ApplicationController
     move = params["move"]["content"]
     user = params["move"]["user"]
     data = {
-      "user": user,
-      "move": move
+        "user": user,
+        "move": move
     }
     ActionCable.server.broadcast("moves_#{params["move"]["hsh"]}",
                                  data.to_json)
