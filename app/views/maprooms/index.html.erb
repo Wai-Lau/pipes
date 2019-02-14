@@ -1,0 +1,43 @@
+<div class="main">
+  <div id="map" style="width:100%; height: 100%;"></div>
+  <div class="setup" id="setup">
+    <div class="card panel" style="text-align: center">
+      <div class="card-body">
+        <h1 class="card-title">P I P E S</h1>
+        <p class="card-text">Copy the link in the top right to share your location!</p>
+      </div>
+    </div>
+    <div class="card panel">
+      <div class="card-body">
+        <h5 class="card-title">What should we call you?</h5>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="preview_circle" style="text-shadow: 0px 0px 4px #000000;"><strong>◯</strong></span>
+          </div>
+          <input type="text" class="form-control"
+            id="name"
+            placeholder="John Doe"
+            aria-describedby="basic-addon2" onkeyup="update_preview_circle()"
+          >
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="finish_setup('<%=@host%>','<%=@hsh%>')">Find me!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card panel" id="location" style="display: none;">
+      <div class="card-body">
+        <p class="card-text"></p>
+      </div>
+    </div>
+  </div>
+  <div class="card your-link">
+    <div class="card-body">
+      <p class="card-text">Invite link: <%=@host%><%=@hsh%></p>
+    </div>
+  </div>
+</div>
+<script>
+  createMap();
+  connect("<%=@hsh%>");
+</script>

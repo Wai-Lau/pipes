@@ -1,10 +1,12 @@
 class MovesController < ApplicationController
   def create
     move = params["move"]["content"]
+    user = params["move"]["user"]
     data = {
-      "user": User.find_by(id: cookies.signed[:user_id]).name,
-      "move": move
+        "user": user,
+        "move": move
     }
-    ActionCable.server.broadcast("moves_#{params["move"]["url"]}", data.to_json)
+    ActionCable.server.broadcast("moves_#{params["move"]["hsh"]}",
+                                 data.to_json)
   end
 end

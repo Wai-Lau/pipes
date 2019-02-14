@@ -1,3 +1,3 @@
 class Maproom < ApplicationRecord
-  has_many :users
+  validates :hsh, uniqueness: true
 end
