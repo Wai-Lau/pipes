@@ -18,8 +18,6 @@ function connect(hsh) {
       addOrUpdateMarker(position, user)
       if (new_u) {
         center_camera(0)
-      } else {
-        center_camera()
       }
     }
   });
@@ -43,15 +41,15 @@ center_camera = (speed=1000) => {
 }
 
 select_zoom = (x) => {
-  if (x < 0.001) return 18
-  if (0.001 < x && x <= 0.01) return interpolate(x,0.001,0.01,18,16)
-  if (0.01 < x && x <= 0.25) return interpolate(x,0.01,0.25,16,11)
-  if (0.25 < x && x <= 0.5) return interpolate(x,0.25,0.5,11,10)
-  if (0.5 < x && x <= 1) return interpolate(x,0.5,1,10,9)
-  if (1 < x && x <= 2) return interpolate(x,1,2,9,8)
-  if (2 < x && x <= 10) return interpolate(x,2,10,8,6)
-  if (10 < x && x <= 20) return interpolate(x,10,20,6,5)
-  if (20 < x && x <= 100) return interpolate(x,20,100,5,2.5)
+  if (x < 0.001) return 17
+  if (0.001 < x && x <= 0.01) return interpolate(x,0.001,0.01,17,15)
+  if (0.01 < x && x <= 0.25) return interpolate(x,0.01,0.25,15,10)
+  if (0.25 < x && x <= 0.5) return interpolate(x,0.25,0.5,10,9)
+  if (0.5 < x && x <= 1) return interpolate(x,0.5,1,9,8)
+  if (1 < x && x <= 2) return interpolate(x,1,2,8,7)
+  if (2 < x && x <= 10) return interpolate(x,2,10,7,5)
+  if (10 < x && x <= 20) return interpolate(x,10,20,5,4)
+  if (20 < x && x <= 100) return interpolate(x,20,100,4,2)
   if (100 < x) return 2.5;
 }
 

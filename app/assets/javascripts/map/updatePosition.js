@@ -44,7 +44,7 @@ var options = {
 
 function getCurrentLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(success, error, options)
+    navigator.geolocation.getCurrentPosition(success, error, options)
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
@@ -52,4 +52,5 @@ function getCurrentLocation() {
 
 function startUpdating() {
   getCurrentLocation();
+  setInterval(getCurrentLocation, 5000);
 }
