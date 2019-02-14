@@ -19,7 +19,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -81,6 +81,14 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.file_watcher = ActiveSupport::FileUpdateChecker
+  host = ENV['WEBSOCKET_HOST']
+  port = ENV['WEBSOCKET_HOST_PORT']
+  config.action_cable.url = "ws://#{host}:#{port}/cable"
+  config.action_cable.allowed_request_origins = ["https://#{host}:#{port}", "http://#{host}:#{port}", "http://#{host}", "https://#{host}"]
+
+  config.serve_static_assets = true
+  config.public_file_server.enabled = true
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
