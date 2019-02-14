@@ -49,8 +49,8 @@ select_zoom = (x) => {
   if (1 < x && x <= 2) return interpolate(x,1,2,8,7)
   if (2 < x && x <= 10) return interpolate(x,2,10,7,5)
   if (10 < x && x <= 20) return interpolate(x,10,20,5,4)
-  if (20 < x && x <= 100) return interpolate(x,20,100,4,2)
-  if (100 < x) return 2.5;
+  if (20 < x && x <= 100) return interpolate(x,20,100,4,3)
+  if (100 < x) return 3;
 }
 
 max_distance = () => {

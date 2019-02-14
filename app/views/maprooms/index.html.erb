@@ -32,12 +32,25 @@
     </div>
   </div>
   <div class="card your-link">
-    <div class="card-body">
-      <p class="card-text">Invite link: <%=@host%><%=@hsh%></p>
+    <div class="card-body link">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Link</span>
+        </div>
+        <input type="text" id="link" class="form-control" readonly value="<%=@host%><%=@hsh%>">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" onclick="copy_link()" type="button">Copy</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <script>
   createMap();
   connect("<%=@hsh%>");
+  copy_link = () => {
+    var copyText = document.getElementById("link");
+    copyText.select();
+    document.execCommand("copy");
+  }
 </script>
